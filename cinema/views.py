@@ -26,12 +26,12 @@ def movie_detail(request: Request, pk: int) -> Response:
     movie = get_object_or_404(Movie, pk=pk)
     serializer = MovieSerializer(movie)
     if request.method == "GET":
-        return Response(serializer.data, status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     elif request.method == "PUT":
         serializer = MovieSerializer(movie, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data, status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     else:
         movie.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
